@@ -1,0 +1,39 @@
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+// Register User
+export const registerUser = async (userData) => {
+    return axios.post(`${API_URL}/auth/register`, userData);
+};
+
+// Login User
+export const loginUser = async (userData) => {
+    return axios.post(`${API_URL}/auth/login`, userData);
+};
+
+// Fetch Events
+export const fetchEvents = async () => {
+    return axios.get(`${API_URL}/events`);
+};
+
+// Create Event
+export const createEvent = async (eventData, token) => {
+    return axios.post(`${API_URL}/events/create`, eventData, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};
+
+// Join Event
+export const joinEvent = async (eventId, token) => {
+    return axios.post(`${API_URL}/events/join/${eventId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};
+
+// Delete Event
+export const deleteEvent = async (eventId, token) => {
+    return axios.delete(`${API_URL}/events/${eventId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};
