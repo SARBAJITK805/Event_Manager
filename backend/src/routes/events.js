@@ -75,5 +75,35 @@ router.delete("/:eventId", authMiddleware, async (req, res) => {
     }
 });
 
+// Update Event
+
+router.put("/:eventId", authMiddleware, async (req, res) => {
+    try {
+        const { name, description, date, location, category, imageUrl } = req.body;
+        let event = await Event.findById(req.params.eventId);
+
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+        // Check if the user is the event creator
+        if (event.createdBy.toString() !== req.user.id) {
+            return res.status(403).json({ message: "Not authorized" });
+        }
+
+        // Update event fields
+        event.name = name || event.name;
+        event.description = description || event.description;
+        event.date = date || event.date;
+        event.location = location || event.location;
+        event.category = category || event.category;
+        event.imageUrl = imageUrl || event.imageUrl;
+
+        await event.save();
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
+
 
 module.exports = router;

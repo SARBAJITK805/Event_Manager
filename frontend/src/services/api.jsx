@@ -44,3 +44,10 @@ export const deleteEvent = async (eventId, token) => {
         headers: { Authorization: `Bearer ${token}` },
     });
 };
+
+// Update Event
+export const updateEvent = async (eventId, updatedData, token) => {
+    return axios.put(`${API_URL}/events/${eventId}`, updatedData, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+};
