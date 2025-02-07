@@ -11,14 +11,18 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Sending login request with:", { email, password }); // Debug log
+
         try {
-            const { data } = await loginUser({ email, password });
-            login(data.user, data.token);
-            navigate("/dashboard");
+            const response = await loginUser({ email, password });
+            console.log("Login successful:", response.data);
+            navigate("/dashboard")
         } catch (error) {
-            alert(error.response.data.message);
+            console.error("Login failed:", error.response ? error.response.data : error.message);
+            alert(error.response ? error.response.data.message : "Login error");
         }
     };
+
 
     return (
         <div>

@@ -4,12 +4,19 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Register User
 export const registerUser = async (userData) => {
-    return axios.post(`${API_URL}/auth/register`, userData);
+    return axios.post(`${API_URL}/auth/register`, {
+        fullname: userData.fullname.trim(),
+        email: userData.email.trim().toLowerCase(),
+        password: userData.password,
+    });
 };
 
 // Login User
 export const loginUser = async (userData) => {
-    return axios.post(`${API_URL}/auth/login`, userData);
+    return axios.post(`${API_URL}/auth/login`, {
+        email: userData.email.trim().toLowerCase(),
+        password: userData.password.trim(),
+    });
 };
 
 // Fetch Events

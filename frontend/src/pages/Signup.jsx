@@ -3,7 +3,7 @@ import { registerUser } from "../services/api.jsx";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [name, setName] = useState("");
+    const [fullname, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await registerUser({ name, email, password });
+            await registerUser({ fullname, email, password });
             alert("Registration successful! Please log in.");
             navigate("/login");
         } catch (error) {
@@ -23,7 +23,7 @@ const Signup = () => {
         <div>
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                <input type="text" placeholder="Name" value={fullname} onChange={(e) => setName(e.target.value)} />
                 <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type="submit">Register</button>

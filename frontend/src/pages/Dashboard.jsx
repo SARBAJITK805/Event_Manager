@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import { fetchEvents, joinEvent, createEvent, deleteEvent } from "../services/api";
-import { AuthContext } from "../context/AuthContext";
+import { fetchEvents, joinEvent, createEvent, deleteEvent } from "../services/api.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Dashboard = () => {
     const [events, setEvents] = useState([]);
@@ -10,7 +10,7 @@ const Dashboard = () => {
         date: "",
         location: "",
         category: "",
-        imageUrl: ""
+        imageUrl: "",
     });
 
     const { user, token } = useContext(AuthContext); // Get logged-in user details
@@ -26,7 +26,7 @@ const Dashboard = () => {
             }
         };
         loadEvents();
-    }, []);
+    }, [events]);
 
     // Handle Join Event
     const handleJoin = async (eventId) => {
@@ -131,13 +131,14 @@ const Dashboard = () => {
                         <p><strong>Location:</strong> {event.location}</p>
                         <p><strong>Category:</strong> {event.category}</p>
                         <button onClick={() => handleJoin(event._id)}>Join Event</button>
-                        
+
                         {/* Show delete button only for event creators */}
-                        {user && user.id === event.createdBy && (
+                        {user && event.createdBy && user.id === event.createdBy._id && (
                             <button onClick={() => handleDelete(event._id)} style={{ marginLeft: "10px", backgroundColor: "red", color: "white" }}>
                                 Delete Event
                             </button>
                         )}
+
                     </div>
                 ))
             )}
