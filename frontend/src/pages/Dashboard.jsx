@@ -4,8 +4,8 @@ import { AuthContext } from "../context/AuthContext.jsx";
 
 const Dashboard = () => {
     const [events, setEvents] = useState([]);
-    const [editingEvent, setEditingEvent] = useState(null); // Stores the event being edited
-    const [updatedEvent, setUpdatedEvent] = useState({}); // Stores the updated event details
+    const [editingEvent, setEditingEvent] = useState(null); 
+    const [updatedEvent, setUpdatedEvent] = useState({});
     const [newEvent, setNewEvent] = useState({
         name: "",
         description: "",
